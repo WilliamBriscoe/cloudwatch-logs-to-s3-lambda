@@ -1,0 +1,13 @@
+{
+    "name": "cloudwatchlogtos3",
+    "version": "1.0.0",
+    "description": "Processes CloudWatch logs to s3",
+    "private": "true",
+    "dependencies": {
+      "async": "1.2.0"
+    },
+    "devDependencies": {
+        "aws-sdk": "2.0.23",
+        "async": "1,2.0"
+    },
+}
