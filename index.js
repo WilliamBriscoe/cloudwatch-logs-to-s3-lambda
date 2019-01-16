@@ -8,9 +8,9 @@ exports.handler = function (event, context) {
         var cloudwatchlogs = new AWS.CloudWatchLogs();
         var now = new Date();
         var params = {
-          destination: 'direct-sold-testing',            // s3 bucket name 
+          destination: 'awg-storefront-logs-uat',            // s3 bucket name 
           from: now.getTime() - 3600000,                 // Current time minus one hour in milliseconds 
-          logGroupName: '/aws/lambda/HelloWorld',        // cloudwatch log group name 
+          logGroupName: 'storefrontuat-logs',        // cloudwatch log group name 
           to: now.getTime(),                             // Current time
           taskName: "LogTask_"+now.getTime().toString()
         };
