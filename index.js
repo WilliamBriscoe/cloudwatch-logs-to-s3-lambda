@@ -2,7 +2,7 @@
 //This Lambda is intended to be called automatically on a schedule every hour and will export all logs for the previous hour.
 
 
-var AWS = require('aws-sdk');
+var AWS = require('./node_modules/aws-sdk');
 exports.handler = function (event, context) {
     try {
         var cloudwatchlogs = new AWS.CloudWatchLogs();
