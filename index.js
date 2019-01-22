@@ -2,15 +2,24 @@
 //This Lambda is intended to be called automatically on a schedule every hour and will export all logs for the previous hour.
 
 
-var AWS = require('./node_modules/aws-sdk');
+var AWS = require('node_modules/aws-sdk');
 exports.handler = function (event, context) {
     try {
+		console.log('here we go again');
+		const s3loggroup = process.env.S3LOGGROUP;
+		const s3logstreamprefix = process.env.S3LOGSTREAMPREFIX;
+		const s3bucket = process.env.S3BUCKET;
+		const s3prefix = process.env.S3PREFIX;
         var cloudwatchlogs = new AWS.CloudWatchLogs();
         var now = new Date();
+		var yesterday = new Date();
+		yesterday.setDate(yesterday.getDate() - 1)
         var params = {
-          destination: 'awg-logs-test',            // s3 bucket name 
-          from: now.getTime() - 3600000,                 // Current time minus one hour in milliseconds 
-          logGroupName: 'awg-sandbox-logs',        // cloudwatch log group name 
+          destination: s3bucket,            // s3 bucket name
+          destinationPrefix: s3prefix,                  // destination prefix 
+          from: yesterday.getTime(),                 // Current time minus one hour in milliseconds 
+          logGroupName: s3loggroup,        // cloudwatch log group name 
+		  logStreamNamePrefix: s3logstreamprefix, // cloudwatch log stream prefix
           to: now.getTime(),                             // Current time
           taskName: "LogTask_"+now.getTime().toString()
         };
@@ -28,4 +37,5 @@ exports.handler = function (event, context) {
         console.log('General Error.');
         console.log(err);
     }
+	console.log('exiting');
 };
