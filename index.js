@@ -5,30 +5,27 @@
 var AWS = require('node_modules/aws-sdk');
 exports.handler = function (event, context) {
     try {
-		console.log('here we go again');
-		const s3loggroup = process.env.S3LOGGROUP;
-		const s3logstreamprefix = process.env.S3LOGSTREAMPREFIX;
-		const s3bucket = process.env.S3BUCKET;
-		const s3prefix = process.env.S3PREFIX;
+	console.log('here we go again');
+	const s3loggroup = process.env.S3LOGGROUP;
+	const s3logstreamprefix = process.env.S3LOGSTREAMPREFIX;
+	const s3bucket = process.env.S3BUCKET;
+	const s3prefix = process.env.S3PREFIX;
         var cloudwatchlogs = new AWS.CloudWatchLogs();
         var now = new Date();
-		var yesterday = new Date();
-		yesterday.setDate(yesterday.getDate() - 1)
         var params = {
-          destination: s3bucket,            // s3 bucket name
+          destination: s3bucket,                        // s3 bucket name
           destinationPrefix: s3prefix,                  // destination prefix 
-          from: yesterday.getTime(),                 // Current time minus one hour in milliseconds 
-          logGroupName: s3loggroup,        // cloudwatch log group name 
-		  logStreamNamePrefix: s3logstreamprefix, // cloudwatch log stream prefix
-          to: now.getTime(),                             // Current time
+          from: now.getTime() - 86400000,               // Current time minus 24 hour in milliseconds 
+          logGroupName: s3loggroup,                     // cloudwatch log group name 
+          logStreamNamePrefix: s3logstreamprefix,       // cloudwatch log stream prefix
+          to: now.getTime(),                            // Current time
           taskName: "LogTask_"+now.getTime().toString()
         };
         console.log('Log Migrate Action Called with Params : ' +JSON.stringify(params));
         cloudwatchlogs.createExportTask(params, function(err, data) {
-          if (err) {
-              console.log('Error : '+ err, err.stack); // an error occurred                                                                                                                
-          }
-          else{
+        if (err) {
+              console.log('Error : '+ err, err.stack); // an error occurred                                                                                                                         }
+        else{
                 console.log('Success : ' + JSON.stringify(data));  // successful response
           }
         });
