@@ -5,14 +5,14 @@
 var AWS = require('node_modules/aws-sdk');
 exports.handler = function (event, context) {
     try {
-	console.log('here we go again');
-	const s3loggroup = process.env.S3LOGGROUP;
-	const s3logstreamprefix = process.env.S3LOGSTREAMPREFIX;
-	const s3bucket = process.env.S3BUCKET;
-	const s3prefix = process.env.S3PREFIX;
-        var cloudwatchlogs = new AWS.CloudWatchLogs();
-        var now = new Date();
-        var params = {
+		console.log('here we go again');
+		const s3loggroup = process.env.S3LOGGROUP;
+		const s3logstreamprefix = process.env.S3LOGSTREAMPREFIX;
+		const s3bucket = process.env.S3BUCKET;
+		const s3prefix = process.env.S3PREFIX;
+		var cloudwatchlogs = new AWS.CloudWatchLogs();
+		var now = new Date();
+		var params = {
           destination: s3bucket,                        // s3 bucket name
           destinationPrefix: s3prefix,                  // destination prefix 
           from: now.getTime() - 86400000,               // Current time minus 24 hour in milliseconds 
@@ -21,11 +21,12 @@ exports.handler = function (event, context) {
           to: now.getTime(),                            // Current time
           taskName: "LogTask_"+now.getTime().toString()
         };
-        console.log('Log Migrate Action Called with Params : ' +JSON.stringify(params));
+         console.log('Log Migrate Action Called with Params : ' +JSON.stringify(params));
         cloudwatchlogs.createExportTask(params, function(err, data) {
-        if (err) {
-              console.log('Error : '+ err, err.stack); // an error occurred                                                                                                                         }
-        else{
+          if (err) {
+              console.log('Error : '+ err, err.stack); // an error occurred                                                                                                                
+          }
+          else{
                 console.log('Success : ' + JSON.stringify(data));  // successful response
           }
         });
