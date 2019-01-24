@@ -14,8 +14,6 @@ S3LOGSTREAMPREFIX  "Log stream prefix name"
 
 S3BUCKET           "S3 bucket name"
 
-S3PREFIX           "S3 bucket prefix (the top folder in the bucket)"
-
 S3BACKINMS         "Time amount subtracted to determine from time in milliseconds" 
 
 
