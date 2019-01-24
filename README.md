@@ -4,9 +4,9 @@
 
  * `npm install` will generate a directory `node_modules` which contains all third-party library
 
- * zip the content and upload to lambda function. EX: cd dsas-mvp; zip -r /tmp/demo.zip *
+ * zip the content and upload to lambda function. EX:zip -r /tmp/demo.zip * or use the logstos3.zip for AWS Lambda. 
  
- UPDATED to use environment variables:
+ * setup the following environment variables:
  
 S3LOGGROUP         "Cloudwatch log group"   
 
