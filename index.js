@@ -9,13 +9,14 @@ exports.handler = function (event, context) {
 		const s3loggroup = process.env.S3LOGGROUP;
 		const s3logstreamprefix = process.env.S3LOGSTREAMPREFIX;
 		const s3bucket = process.env.S3BUCKET;
-		const s3prefix = process.env.S3PREFIX;
+		// const s3prefix = process.env.S3PREFIX;
 		const s3milliseconds = process.env.S3BACKINMS;
 		var cloudwatchlogs = new AWS.CloudWatchLogs();
 		var now = new Date();
+		var datestring = now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate() + "-" + now.getHours() + ":" + now.getMinutes();
 		var params = {
           destination: s3bucket,                        // s3 bucket name
-          destinationPrefix: s3prefix,                  // destination prefix 
+          destinationPrefix: datestring,                  // destination prefix 
           from: now.getTime() - s3milliseconds,               // Current time minus milliseconds 
           logGroupName: s3loggroup,                     // cloudwatch log group name 
           logStreamNamePrefix: s3logstreamprefix,       // cloudwatch log stream prefix
