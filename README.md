@@ -6,7 +6,7 @@
 
  * zip the content and upload to lambda function. EX:zip -r /tmp/demo.zip * or use the logstos3.zip for AWS Lambda. 
  
- * setup the following environment variables:
+ * setup the following environment variables in Lambda:
  
 S3LOGGROUP         "Cloudwatch log group"   
 
@@ -16,4 +16,4 @@ S3BUCKET           "S3 bucket name"
 
 S3BACKINMS         "Time amount subtracted to determine from time in milliseconds" 
 
-
+The s3permission.json file contains a sample s3 bucket policy that must be attached to the bucket
